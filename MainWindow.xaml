@@ -1,0 +1,35 @@
+﻿<Window x:Class="XsiOv2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XsiOv2"
+        mc:Ignorable="d"
+        Title="X SI 0" Height="500" Width="900">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Meniu joc">
+                <MenuItem Header="Start joc"
+                          Click="StartGame"
+                          />
+                <MenuItem Header="Iesire"
+                          Click="Exit"
+                          />
+            </MenuItem>
+                
+        </Menu>
+
+        <Grid DockPanel.Dock="Left" Width="300"/>
+        <Grid Name="board" DockPanel.Dock="Right">
+            <Button Name="b00" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Height="90" Width="105" Click="btn_Click" FontSize="60"/>
+            <Button Name="b01" HorizontalAlignment="Left" Margin="230,39,0,0" VerticalAlignment="Top" Height="90" Width="110" Click="btn_Click" FontSize="60"/>
+            <Button Name="b02" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Height="90" Width="110" Click="btn_Click" FontSize="60"/>
+            <Button Name="b10" HorizontalAlignment="Left" Margin="40,177,0,0" VerticalAlignment="Top" Height="92" Width="105" Click="btn_Click" FontSize="60"/>
+            <Button Name="b11" HorizontalAlignment="Left" Margin="230,177,0,0" VerticalAlignment="Top" Height="92" Width="110" Click="btn_Click" FontSize="60"/>
+            <Button Name="b12" HorizontalAlignment="Left" Margin="425,177,0,0" VerticalAlignment="Top" Height="92" Width="110" Click="btn_Click" FontSize="60"/>
+            <Button Name="b20" HorizontalAlignment="Left" Margin="40,319,0,0" VerticalAlignment="Top" Height="85" Width="105" Click="btn_Click" FontSize="60"/>
+            <Button Name="b21" HorizontalAlignment="Left" Margin="230,319,0,0" VerticalAlignment="Top" Height="85" Width="110" Click="btn_Click" FontSize="60"/>
+            <Button Name="b22" HorizontalAlignment="Left" Margin="425,319,0,0" VerticalAlignment="Top" Height="85" Width="110" Click="btn_Click" FontSize="60"/>
+        </Grid>
+    </DockPanel>
+</Window>
