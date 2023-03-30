@@ -13,6 +13,8 @@ namespace XsiOv2
         private int boardDimmension;
         private const string mainSimbol = "X";
         private string winnerName;
+        private const int playerMove = 1;
+        private const int computerMove = 2;
 
         public MainWindow()
         {
@@ -68,7 +70,7 @@ namespace XsiOv2
                 Button computerBtn = (Button)this.FindName("b" + automatMoveDetails.Item1.ToString() +
                                                                  automatMoveDetails.Item2.ToString());
                 computerBtn.Content = automatMoveDetails.Item3;
-                PrintMessage(game.EvaluateGame(ref winnerName));
+                PrintMessage(game.EvaluateGame(ref winnerName, computerMove));
             }
         }
 
@@ -91,7 +93,7 @@ namespace XsiOv2
             if (game.PlayerMove(i, j, ref symbol))
             {
                 button.Content = symbol;
-                PrintMessage(game.EvaluateGame(ref winnerName));
+                PrintMessage(game.EvaluateGame(ref winnerName, playerMove));
                 ComputerMove();
             }
             
@@ -106,7 +108,7 @@ namespace XsiOv2
         {   
             if (!Game.gameBoardInit)
             {
-                game = new Game("alex", "O", "X");
+                game = new Game("alex", "X", "O");
                 game.InitializeGame(boardDimmension);
                 board.Visibility = Visibility.Visible;
                 CheckIfComputerIsMainPlayer();

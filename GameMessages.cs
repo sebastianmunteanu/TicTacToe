@@ -8,7 +8,8 @@ namespace XsiOv2
         public GameMessages()
         {
             gameMessages.Add(10, "Remiza");
-            gameMessages.Add(11, "Game over! Felicitari {0} ai castigat");
+            gameMessages.Add(11, "Game over! Calculatorul a castigat incerca din nou");
+            gameMessages.Add(12, "Felicitari alex ai castigat");
         }
 
         public string GetMessage(int key)

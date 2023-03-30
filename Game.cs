@@ -77,7 +77,7 @@ namespace XsiOv2
             return true;
         }
 
-        public int EvaluateGame(ref string winnerName)
+        public int EvaluateGame(ref string winnerName, int whoMove)
         {   
             if (Board.numberOfMoves >= 2)
             {
@@ -86,8 +86,7 @@ namespace XsiOv2
                 {
                     gameOver = true;
                     winnerName = "test";
-                 //   Board.ResetNumberOfMoves();
-                    return 11;
+                    return 13 - whoMove;
                 }
                 
                 if (board.BoardIsFull())
