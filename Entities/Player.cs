@@ -1,18 +1,20 @@
 ﻿namespace XsiOv2.Entities
 
 {
-    internal class Jucator
+    internal class Player
     {
         private string playerName;
         private string playerSymbol;
+        private int playerNumber;
 
-        public Jucator(string playerName, string playerSymbol)
+        public Player(string playerName, string playerSymbol, int playerNumber)
         {
             this.playerName = playerName;
             this.playerSymbol = playerSymbol;
+            this.playerNumber = playerNumber;   
         }
 
-        public string GetNumeJucator()
+        public string GetPlayerName()
         {
             return playerName;
         }
@@ -21,5 +23,11 @@
         {
             return playerSymbol;
         }
+
+        public int GetPlayerNumber()
+        {
+            return playerNumber;
+        }
+
     }
 }

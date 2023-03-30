@@ -8,7 +8,7 @@ namespace XsiOv2
         public GameMessages()
         {
             gameMessages.Add(10, "Remiza");
-            gameMessages.Add(11, "Game over! Calculatorul a castigat incerca din nou");
+            gameMessages.Add(11, "Game over! Calculatorul a castigat :(, incercati din nou!");
             gameMessages.Add(12, "Felicitari alex ai castigat");
         }
 

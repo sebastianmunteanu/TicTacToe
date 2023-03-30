@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.Pkcs;
 using XsiOv2.Entities;
 
 namespace XsiOv2
@@ -10,15 +11,18 @@ namespace XsiOv2
         List<Camp> freeCapms;
         private bool gameOver;
         public static bool gameBoardInit;
-        private Jucator mainPlayer;
-        private Jucator computer;
+        private Player mainPlayer;
+        private Player computer;
+        private const int mainPlayerNumber = 1;
+        private const int computerNumber = 2;
 
         public Game(string playerName, string playerSymbol, string computerSymbol)
         {
+
             string computerName = "Computer";
             gameOver = false;
-            mainPlayer = new Jucator(playerName, playerSymbol);
-            computer = new Jucator(computerName, computerSymbol);
+            mainPlayer = new Player(playerName, playerSymbol, mainPlayerNumber);
+            computer = new Player(computerName, computerSymbol, computerNumber);
         }
 
         public string mainPlayerSymbol()
@@ -33,7 +37,7 @@ namespace XsiOv2
             {
                 for (int j = 0; j < dim; j++)
                 {
-                    Camp c = new Camp(i, j, "");
+                    Camp c = new Camp(i, j, 0);
                     board.camps.Add(c);
                 }
             }
@@ -46,7 +50,7 @@ namespace XsiOv2
             {
                 return false;
             }
-            if (board.SetCamp(i, j, mainPlayer.GetPlayerSymbol()))
+            if (board.SetCamp(i, j, mainPlayer.GetPlayerNumber()))
             {
                 symbol = mainPlayer.GetPlayerSymbol();
                 Board.IncreaseNumberOfMoves();
@@ -70,27 +74,29 @@ namespace XsiOv2
                 choseCamp = Utils.GetRandomCamp(freeCapms);
                 board.SetCamp(choseCamp.GetRow(),
                               choseCamp.GetColumn(),
-                              computer.GetPlayerSymbol());
+                              computer.GetPlayerNumber());
                 automatMoveDetails = Tuple.Create(choseCamp.GetRow(), choseCamp.GetColumn(), computer.GetPlayerSymbol());
                 return true;
             }
             return true;
         }
 
-        public int EvaluateGame(ref string winnerName, int whoMove)
-        {   
+        public int EvaluateGame(ref string winnerName)
+        {
+            int whoMove = 0;
             if (Board.numberOfMoves >= 2)
             {
 
-                if (Utils.EvaluateBoard(board))
+                if (Utils.EvaluateBoard(board, ref whoMove))
                 {
                     gameOver = true;
-                    winnerName = "test";
+                    winnerName = Utils.whoWin(whoMove, mainPlayer, computer);
                     return 13 - whoMove;
                 }
                 
                 if (board.BoardIsFull())
                 {
+                    winnerName = "";
                     return 10;
                 }
             }
@@ -103,7 +109,7 @@ namespace XsiOv2
             gameOver = false;
             foreach (Camp camp in board.camps)
             {
-                camp.SetContent("");
+                camp.SetContent(0);
             }
         }
     }

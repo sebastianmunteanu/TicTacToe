@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace XsiOv2.Entities
-{   
+﻿namespace XsiOv2.Entities
+{
 
     internal class Camp
     {
         int rowNumber;
         int columnNumber;
-        string content; // -1 0 1 
+        int content; // 0 1 2 
 
-        public Camp (int rowNumber, int columnNumber, string content)
+        public Camp (int rowNumber, int columnNumber, int content)
         {
             this.rowNumber = rowNumber;
             this.columnNumber = columnNumber;
@@ -26,7 +19,7 @@ namespace XsiOv2.Entities
 
         }
 
-        public string GetContent ()
+        public int GetContent ()
         {
             return this.content;
         }
@@ -36,7 +29,7 @@ namespace XsiOv2.Entities
             return this;
         }
 
-        public void SetContent (string content)
+        public void SetContent (int content)
         {
             this.content = content;
         }

@@ -5,28 +5,25 @@ namespace XsiOv2.Entities
     internal class Board
     {
         public List<Camp> camps;
-        //  private Camp lastOccupied;
         public static int numberOfMoves;
         private int boardDimension;
-        private bool isFull;
 
         public Board(int boardDimension)
         {   
             this.boardDimension = boardDimension;
             camps = new List<Camp>();
             numberOfMoves = 0;
-            isFull = false;
         }
 
-        public bool SetCamp(int i, int j, string playerSimbol)
+        public bool SetCamp(int i, int j, int playerNumber)
         {
             foreach (Camp camp in camps)
             {
                 if (camp.GetRow() == i && camp.GetColumn() == j)
                 {
-                    if (camp.GetContent() == "")
+                    if (camp.GetContent() == 0)
                     {
-                        camp.SetContent(playerSimbol);
+                        camp.SetContent(playerNumber);
                     }
                     else
                         return false;
@@ -40,7 +37,7 @@ namespace XsiOv2.Entities
             List<Camp> freeCamps = new List<Camp>();
             foreach(Camp c in camps)
             {
-                if (c.GetContent() == "")
+                if (c.GetContent() == 0)
                 {
                     freeCamps.Add(c);
                 }
@@ -52,7 +49,7 @@ namespace XsiOv2.Entities
         {
             foreach(Camp c in camps)
             {
-                if (c.GetContent() == "")
+                if (c.GetContent() == 0)
                     return false;
             }
             return true;

@@ -14,10 +14,10 @@ namespace XsiOv2
             return freeCapms.ElementAt(randomCampIndexNumber);
         }
 
-        private static bool EvaluateRows(Board board)
+        private static bool EvaluateRows(Board board, ref int whoMove)
         {
             int dim = board.GetBoardDimension();
-            string rowElement;
+            int rowElement;
             int matchesContor;
             for (int i = 0; i < dim; i++)
             {
@@ -30,18 +30,19 @@ namespace XsiOv2
                         matchesContor++;
                     }
                 }
-                if (matchesContor == dim - 1 && !string.IsNullOrEmpty(rowElement))
+                if (matchesContor == dim - 1 && rowElement != 0)
                 {
+                    whoMove = rowElement;
                     return true;
                 } 
             }
             return false;
         }
 
-        private static bool EvaluateColumns(Board board)
+        private static bool EvaluateColumns(Board board, ref int whoMove)
         {
             int dim = board.GetBoardDimension();
-            string columnElement;
+            int columnElement;
             int matchesContor;
             for (int i = 0; i < dim; i++)
             {
@@ -54,18 +55,19 @@ namespace XsiOv2
                         matchesContor++;
                     }
                 }
-                if (matchesContor == dim - 1 && !string.IsNullOrEmpty(columnElement))
+                if (matchesContor == dim - 1 && columnElement != 0)
                 {
+                    whoMove = columnElement;
                     return true;
                 }
             }
             return false;
         }
 
-        private static bool EvaluateMainDiagonal(Board board)
+        private static bool EvaluateMainDiagonal(Board board, ref int whoMove)
         {
             int dim = board.GetBoardDimension();
-            string firstElement = board.camps[0].GetContent();
+            int firstElement = board.camps[0].GetContent();
             int matchesContor = 0;
             for (int i = 1; i < dim; i++)
             {
@@ -74,13 +76,14 @@ namespace XsiOv2
                     matchesContor++;
                 }
             }
-            return matchesContor == dim - 1 && !string.IsNullOrEmpty(firstElement);
+            whoMove = firstElement;
+            return matchesContor == dim - 1 && firstElement != 0;
         }
 
-        private static bool EvaluateSecondDiagonal(Board board)
+        private static bool EvaluateSecondDiagonal(Board board, ref int whoMove)
         {
             int dim = board.GetBoardDimension();
-            string firstElement = board.camps[dim - 1].GetContent();
+            int firstElement = board.camps[dim - 1].GetContent();
             int matchesContor = 0;
             for (int i = 1; i < dim; i++)
             {
@@ -89,17 +92,33 @@ namespace XsiOv2
                     matchesContor++;
                 }
             }
-            return matchesContor == dim - 1 && !string.IsNullOrEmpty(firstElement);
+            whoMove = firstElement;
+            return matchesContor == dim - 1 && firstElement != 0;
         }
 
-        public static bool EvaluateBoard(Board board)
+        public static bool EvaluateBoard(Board board, ref int whoMove)
         {
-            if (EvaluateRows(board) || EvaluateColumns(board) ||
-                EvaluateMainDiagonal(board) || EvaluateSecondDiagonal(board))
+            if (EvaluateRows(board, ref whoMove) || EvaluateColumns(board, ref whoMove) ||
+                EvaluateMainDiagonal(board, ref whoMove) || EvaluateSecondDiagonal(board, ref whoMove))
             {
                 return true;
             }
             return false;
+        }
+
+        public static string whoWin(int x, Player p1, Player p2)
+        {
+            if (x == p1.GetPlayerNumber())
+            {
+                return p1.GetPlayerName();
+            }
+
+            if  (x == p2.GetPlayerNumber())
+            {
+                return p2.GetPlayerName();
+            }
+
+            return "";
         }
     }
 }
