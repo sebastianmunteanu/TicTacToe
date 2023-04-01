@@ -6,6 +6,7 @@ namespace XsiOv2.Entities
     {
         public List<Camp> camps;
         public static int numberOfMoves;
+        public static int numberOfCoveredCamps;
         private int boardDimension;
 
         public Board(int boardDimension)
@@ -13,6 +14,7 @@ namespace XsiOv2.Entities
             this.boardDimension = boardDimension;
             camps = new List<Camp>();
             numberOfMoves = 0;
+            numberOfCoveredCamps = 0;
         }
 
         public bool SetCamp(int i, int j, int playerNumber)
@@ -29,6 +31,7 @@ namespace XsiOv2.Entities
                         return false;
                 }
             }
+            numberOfCoveredCamps++;
             return true;
         }
 
@@ -47,12 +50,7 @@ namespace XsiOv2.Entities
 
         public bool BoardIsFull()
         {
-            foreach(Camp c in camps)
-            {
-                if (c.GetContent() == 0)
-                    return false;
-            }
-            return true;
+            return numberOfCoveredCamps == boardDimension * boardDimension;
         }
 
         public int GetBoardDimension()

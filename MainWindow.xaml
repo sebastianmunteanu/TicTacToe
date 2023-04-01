@@ -12,6 +12,8 @@
                 <MenuItem Header="Start joc"
                           Click="StartGame"
                           />
+                <MenuItem Header="Schimba simbol"
+                          Click="SwitchSymbol"/>
                 <MenuItem Header="Iesire"
                           Click="Exit"
                           />
@@ -19,7 +21,19 @@
                 
         </Menu>
 
-        <Grid DockPanel.Dock="Left" Width="300"/>
+        <Grid DockPanel.Dock="Left" Width="300" RenderTransformOrigin="0.483,0.421" >
+            <StackPanel Name="playerAtributes" HorizontalAlignment="Center" Width="200">
+                <Label Content="Nume jucator" Margin="4" HorizontalAlignment="Center"/>
+                <TextBox Name ="playerName" Margin="4" Width="100" TextAlignment="Center"/>
+                <Label Content="Selecteaza simbol jucator" Margin="4" HorizontalAlignment="Center"/>
+                <ComboBox Name="playerSymbol" Margin="4" Width="100">
+                    <ComboBoxItem Content="X"/>
+                    <ComboBoxItem Content="O"/>
+                </ComboBox>
+                <Button Content="Incepe Jocul" Margin="50" Width="100" Height="20" Click="play"/>
+            </StackPanel>
+        </Grid>
+        
         <Grid Name="board" DockPanel.Dock="Right">
             <Button Name="b00" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Height="90" Width="105" Click="btn_Click" FontSize="60"/>
             <Button Name="b01" HorizontalAlignment="Left" Margin="230,39,0,0" VerticalAlignment="Top" Height="90" Width="110" Click="btn_Click" FontSize="60"/>

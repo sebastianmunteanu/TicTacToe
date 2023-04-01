@@ -13,13 +13,16 @@ namespace XsiOv2
         private int boardDimmension;
         private const string mainSimbol = "X";
         private string winnerName;
+        private string mainPlayerName;
+        private string mainPlayerSymbol;
+        private string computerSymbol;
 
         public MainWindow()
         {
             InitializeComponent();
-            messages = new GameMessages();
             boardDimmension = 3;
-           
+            playerAtributes.Visibility = Visibility.Hidden;
+
             if (!gameStart)
             {
                 board.Visibility = Visibility.Hidden;
@@ -55,7 +58,8 @@ namespace XsiOv2
         {
             if (key != 0)
             {
-                MessageBox.Show(messages.GetMessage(key) + " " + winnerName);
+                messages = new GameMessages(ref winnerName);
+                MessageBox.Show(messages.GetMessage(key));
             }
         }
 
@@ -91,25 +95,42 @@ namespace XsiOv2
             if (game.PlayerMove(i, j, ref symbol))
             {
                 button.Content = symbol;
+                
                 PrintMessage(game.EvaluateGame(ref winnerName));
                 ComputerMove();
             }
             
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
+        private void play(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (string.IsNullOrEmpty(playerName.Text))
+                return;
+            else
+                mainPlayerName = playerName.Text;
+
+            if (string.IsNullOrEmpty(playerSymbol.Text))
+                return;
+            else
+                mainPlayerSymbol = playerSymbol.Text;
+
+            if (mainPlayerSymbol == "X")
+                computerSymbol = "O";
+            else
+               computerSymbol = "X";
+
+            game = new Game(mainPlayerName, mainPlayerSymbol, computerSymbol);
+            playerAtributes.Visibility = Visibility.Hidden;
+            game.InitializeGame(boardDimmension);
+            board.Visibility = Visibility.Visible;
+            CheckIfComputerIsMainPlayer();
         }
 
         private void StartGame(object sender, RoutedEventArgs e)
         {   
             if (!Game.gameBoardInit)
             {
-                game = new Game("Alex", "O", "X");
-                game.InitializeGame(boardDimmension);
-                board.Visibility = Visibility.Visible;
-                CheckIfComputerIsMainPlayer();
+                playerAtributes.Visibility = Visibility.Visible;
             } 
             else
             {
@@ -118,5 +139,27 @@ namespace XsiOv2
                 CheckIfComputerIsMainPlayer();
             }
         }
+
+        private void SwitchSymbol(object sender, RoutedEventArgs e)
+        {
+            if(!Game.gameBoardInit)
+            {
+                return;
+            }
+            else
+            {
+                (mainPlayerSymbol, computerSymbol) = (computerSymbol, mainPlayerSymbol);
+                game = new Game(mainPlayerName, mainPlayerSymbol, computerSymbol);
+                game.InitializeGame(boardDimmension);
+                ClearButtonsContent();
+                CheckIfComputerIsMainPlayer();
+            }
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

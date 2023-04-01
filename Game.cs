@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.Pkcs;
 using XsiOv2.Entities;
 
 namespace XsiOv2
@@ -18,8 +17,7 @@ namespace XsiOv2
 
         public Game(string playerName, string playerSymbol, string computerSymbol)
         {
-
-            string computerName = "Computer";
+            string computerName = "Computerul";
             gameOver = false;
             mainPlayer = new Player(playerName, playerSymbol, mainPlayerNumber);
             computer = new Player(computerName, computerSymbol, computerNumber);
@@ -86,7 +84,6 @@ namespace XsiOv2
             int whoMove = 0;
             if (Board.numberOfMoves >= 2)
             {
-
                 if (Utils.EvaluateBoard(board, ref whoMove))
                 {
                     gameOver = true;
@@ -106,6 +103,7 @@ namespace XsiOv2
         public void ClearBoardCamps()
         {
             Board.ResetNumberOfMoves();
+            Board.numberOfCoveredCamps = 0;
             gameOver = false;
             foreach (Camp camp in board.camps)
             {
