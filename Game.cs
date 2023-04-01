@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using XsiOv2.Entities;
 
 namespace XsiOv2
@@ -56,6 +58,8 @@ namespace XsiOv2
             }
             return false;
         }
+
+
 
         public bool AutomatMove(ref Tuple<int, int, string> automatMoveDetails)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,7 +23,7 @@ namespace XsiOv2
             InitializeComponent();
             boardDimmension = 3;
             playerAtributes.Visibility = Visibility.Hidden;
-
+            aboutGame.Visibility = Visibility.Hidden;
             if (!gameStart)
             {
                 board.Visibility = Visibility.Hidden;
@@ -63,12 +64,20 @@ namespace XsiOv2
             }
         }
 
-        private void ComputerMove()
+        async Task ComputerThink()
+        {
+            await Task.Delay(1000);
+            board.IsEnabled = true;
+        }
+
+        private async void ComputerMove()
         {
             Tuple<int, int, string> automatMoveDetails = new Tuple<int, int, string>(-1, -1, "");
-
+            
             if (game.AutomatMove(ref automatMoveDetails))
             {
+                board.IsEnabled = false;
+                await ComputerThink();
                 Button computerBtn = (Button)this.FindName("b" + automatMoveDetails.Item1.ToString() +
                                                                  automatMoveDetails.Item2.ToString());
                 computerBtn.Content = automatMoveDetails.Item3;
@@ -119,6 +128,7 @@ namespace XsiOv2
             else
                computerSymbol = "X";
 
+            aboutGame.Visibility = Visibility.Hidden;
             game = new Game(mainPlayerName, mainPlayerSymbol, computerSymbol);
             playerAtributes.Visibility = Visibility.Hidden;
             game.InitializeGame(boardDimmension);
@@ -127,7 +137,8 @@ namespace XsiOv2
         }
 
         private void StartGame(object sender, RoutedEventArgs e)
-        {   
+        {
+            aboutGame.Visibility = Visibility.Hidden;
             if (!Game.gameBoardInit)
             {
                 playerAtributes.Visibility = Visibility.Visible;
@@ -142,7 +153,8 @@ namespace XsiOv2
 
         private void SwitchSymbol(object sender, RoutedEventArgs e)
         {
-            if(!Game.gameBoardInit)
+            aboutGame.Visibility = Visibility.Hidden;
+            if (!Game.gameBoardInit)
             {
                 return;
             }
@@ -161,5 +173,10 @@ namespace XsiOv2
             this.Close();
         }
 
+        private void AboutGame(object sender, RoutedEventArgs e)
+        {
+            curentDate.Text = DateTime.Now.ToString();
+            aboutGame.Visibility = Visibility.Visible;
+        }
     }
 }

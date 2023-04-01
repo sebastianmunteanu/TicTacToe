@@ -18,7 +18,10 @@
                           Click="Exit"
                           />
             </MenuItem>
-                
+            <MenuItem Header="Ajutor">
+                <MenuItem Header="Despre" Click="AboutGame"/>
+            </MenuItem>
+
         </Menu>
 
         <Grid DockPanel.Dock="Left" Width="300" RenderTransformOrigin="0.483,0.421" >
@@ -32,8 +35,33 @@
                 </ComboBox>
                 <Button Content="Incepe Jocul" Margin="50" Width="100" Height="20" Click="play"/>
             </StackPanel>
+            <StackPanel Name="aboutGame"
+                        Width="270"
+                        Height="225"
+                        VerticalAlignment="Top" Margin="15,233,15,0">
+                <TextBlock TextWrapping="Wrap">
+                    Nume student: <LineBreak/> MUNTEANU Alexandru-Sebastian
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap">
+                    Adresa email: sebastian.munteanu@student.unitbv.ro
+                </TextBlock>
+                <TextBlock>
+                    Data curenta:
+                </TextBlock>
+                <TextBlock Name="curentDate"/>
+                <TextBlock>
+                    Despre joc:
+                </TextBlock>
+                <TextBox TextWrapping="Wrap" TextAlignment="Justify" IsEnabled="False">
+                    X și O este un joc pentru doi jucători, X respectiv 0,
+                care marchează pe rând câte o căsuță dintr-un tabel cu 3 linii și 3 coloane.
+                Jucătorul care reușește primul să marcheze 3 căsute adiacente pe orizontală,
+                verticală sau diagonală caștigă jocul.
+                </TextBox>
+
+            </StackPanel>
         </Grid>
-        
+
         <Grid Name="board" DockPanel.Dock="Right">
             <Button Name="b00" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Height="90" Width="105" Click="btn_Click" FontSize="60"/>
             <Button Name="b01" HorizontalAlignment="Left" Margin="230,39,0,0" VerticalAlignment="Top" Height="90" Width="110" Click="btn_Click" FontSize="60"/>
